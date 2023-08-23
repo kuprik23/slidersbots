@@ -1,14 +1,77 @@
-/* Add your CSS styles here */
+/* Reset some default styles */
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set the background color for the entire page */
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
 }
 
+/* Style the header */
 header {
     background-color: #333;
     color: white;
-    text-align: center;
     padding: 20px;
+    font-size: 24px;
 }
 
-/* Add more CSS styles as needed */
+/* Style the main content section */
+#avatar {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the sliders and the button */
+.slider {
+    margin: 10px 0;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Style the code display div */
+#codeDisplay {
+    display: none;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+/* Style the mouth (initially closed) */
+#mouth {
+    width: 32px;
+    height: 8px;
+    background-color: #333; /* Dark color for the mouth */
+    transform-origin: center bottom;
+    transform: scaleY(0); /* Initially closed mouth */
+    transition: transform 0.5s ease;
+}
+
+/* Add an animation for opening the mouth */
+.open-mouth #mouth {
+    transform: scaleY(1); /* Fully open mouth */
+}

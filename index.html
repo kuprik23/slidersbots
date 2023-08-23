@@ -13,7 +13,18 @@
     </header>
     
     <section id="avatar">
-        <h2>Customize Your Avatar</h2>
+        <h2>Your Pixelated Avatar</h2>
+        <!-- Pixelated human face with mouth -->
+        <div class="avatar">
+            <!-- Eyes -->
+            <div class="eye"></div>
+            <div class="eye"></div>
+            <!-- Mouth (initially closed) -->
+            <div class="mouth" id="mouth"></div>
+        </div>
+        <!-- End pixelated human face -->
+
+        <!-- Sliders for personality customization -->
         <div class="slider">
             <label for="slider1">Personality Trait 1:</label>
             <input type="range" id="slider1" min="0" max="100">
@@ -26,6 +37,7 @@
             <label for="slider3">Personality Trait 3:</label>
             <input type="range" id="slider3" min="0" max="100">
         </div>
+        <!-- Button to generate and display code -->
         <button id="generateButton">Generate and Display Code</button>
     </section>
     

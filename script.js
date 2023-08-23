@@ -1,5 +1,3 @@
-// Add your JavaScript code here
-
 // Get references to the sliders, code display div, and close button
 const slider1 = document.getElementById('slider1');
 const slider2 = document.getElementById('slider2');
@@ -9,7 +7,7 @@ const codeDisplay = document.getElementById('codeDisplay');
 const codeOutput = document.getElementById('codeOutput');
 const closeCodeDisplay = document.getElementById('closeCodeDisplay');
 
-// Function to generate Three.js code and display it
+// Function to generate Three.js code and open the mouth
 function generateThreeJsCode() {
     const personalityTrait1 = slider1.value;
     const personalityTrait2 = slider2.value;
@@ -26,6 +24,9 @@ function generateThreeJsCode() {
     // Display the generated code in the codeOutput element
     codeOutput.textContent = generatedCode;
 
+    // Open the mouth (add the 'open-mouth' class)
+    document.getElementById('mouth').classList.add('open-mouth');
+
     // Show the code display div
     codeDisplay.style.display = 'block';
 }
@@ -36,4 +37,7 @@ generateButton.addEventListener('click', generateThreeJsCode);
 // Event listener to close the code display
 closeCodeDisplay.addEventListener('click', () => {
     codeDisplay.style.display = 'none';
+
+    // Close the mouth (remove the 'open-mouth' class)
+    document.getElementById('mouth').classList.remove('open-mouth');
 });

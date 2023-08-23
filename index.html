@@ -7,8 +7,35 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Add the rest of the HTML code here -->
-
+    <header>
+        <h1>Emersa Studio</h1>
+        <p>Design Your Avatar</p>
+    </header>
+    
+    <section id="avatar">
+        <h2>Customize Your Avatar</h2>
+        <div class="slider">
+            <label for="slider1">Personality Trait 1:</label>
+            <input type="range" id="slider1" min="0" max="100">
+        </div>
+        <div class="slider">
+            <label for="slider2">Personality Trait 2:</label>
+            <input type="range" id="slider2" min="0" max="100">
+        </div>
+        <div class="slider">
+            <label for="slider3">Personality Trait 3:</label>
+            <input type="range" id="slider3" min="0" max="100">
+        </div>
+        <button id="generateButton">Generate and Display Code</button>
+    </section>
+    
+    <!-- Code display div -->
+    <div id="codeDisplay">
+        <h2>Generated Code</h2>
+        <pre id="codeOutput"></pre>
+        <button id="closeCodeDisplay">Close</button>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>

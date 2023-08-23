@@ -6,6 +6,7 @@ const generateButton = document.getElementById('generateButton');
 const codeDisplay = document.getElementById('codeDisplay');
 const codeOutput = document.getElementById('codeOutput');
 const closeCodeDisplay = document.getElementById('closeCodeDisplay');
+const mouth = document.getElementById('mouth');
 
 // Function to generate Three.js code and open the mouth
 function generateThreeJsCode() {
@@ -25,7 +26,7 @@ function generateThreeJsCode() {
     codeOutput.textContent = generatedCode;
 
     // Open the mouth (add the 'open-mouth' class)
-    document.getElementById('mouth').classList.add('open-mouth');
+    mouth.classList.add('open-mouth');
 
     // Show the code display div
     codeDisplay.style.display = 'block';
@@ -34,10 +35,10 @@ function generateThreeJsCode() {
 // Event listener for the generate button
 generateButton.addEventListener('click', generateThreeJsCode);
 
-// Event listener to close the code display
+// Event listener to close the code display and close the mouth
 closeCodeDisplay.addEventListener('click', () => {
     codeDisplay.style.display = 'none';
 
     // Close the mouth (remove the 'open-mouth' class)
-    document.getElementById('mouth').classList.remove('open-mouth');
+    mouth.classList.remove('open-mouth');
 });

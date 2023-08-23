@@ -3,38 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Avatar Customizer</title>
+    <title>Generate and Rotate Cubes</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>3D Avatar Customizer</h1>
+        <h1>Generate and Rotate Cubes</h1>
     </header>
     
-    <section id="avatar-container"></section>
+    <section id="cube-container">
+        <!-- Display the selected cube here -->
+    </section>
     
     <section id="controls">
-        <h2>Customize Your Avatar</h2>
+        <h2>Customize Your Cube</h2>
         
         <!-- Sliders for customization -->
         <div class="slider">
-            <label for="slider1">Personality Trait 1:</label>
-            <input type="range" id="slider1" min="0" max="100">
+            <label for="slider1">Red:</label>
+            <input type="range" id="slider1" min="0" max="255">
         </div>
         <div class="slider">
-            <label for="slider2">Personality Trait 2:</label>
-            <input type="range" id="slider2" min="0" max="100">
+            <label for="slider2">Green:</label>
+            <input type="range" id="slider2" min="0" max="255">
         </div>
         <div class="slider">
-            <label for="slider3">Personality Trait 3:</label>
-            <input type="range" id="slider3" min="0" max="100">
+            <label for="slider3">Blue:</label>
+            <input type="range" id="slider3" min="0" max="255">
         </div>
         
-        <!-- Button to toggle the avatar -->
-        <button id="toggleAvatarButton">Toggle Avatar</button>
+        <!-- Button to generate code -->
+        <button id="generateCodeButton">Generate Code</button>
     </section>
     
+    <!-- Code display div -->
+    <div id="codeDisplay">
+        <h2>Generated Code</h2>
+        <pre id="codeOutput"></pre>
+    </div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/OrbitControls.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

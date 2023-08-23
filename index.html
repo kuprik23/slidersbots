@@ -3,28 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emersa Studio - Design Your Avatar</title>
+    <title>3D Avatar Customizer</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Emersa Studio</h1>
-        <p>Design Your Avatar</p>
+        <h1>3D Avatar Customizer</h1>
     </header>
     
-    <section id="avatar">
-        <h2>Your Pixelated Avatar</h2>
-        <!-- Pixelated human face with mouth -->
-        <div class="avatar">
-            <!-- Eyes -->
-            <div class="eye"></div>
-            <div class="eye"></div>
-            <!-- Mouth (initially closed) -->
-            <div class="mouth" id="mouth"></div>
-        </div>
-        <!-- End pixelated human face -->
-
-        <!-- Sliders for personality customization -->
+    <section id="avatar-container"></section>
+    
+    <section id="controls">
+        <h2>Customize Your Avatar</h2>
+        
+        <!-- Sliders for customization -->
         <div class="slider">
             <label for="slider1">Personality Trait 1:</label>
             <input type="range" id="slider1" min="0" max="100">
@@ -37,17 +29,12 @@
             <label for="slider3">Personality Trait 3:</label>
             <input type="range" id="slider3" min="0" max="100">
         </div>
-        <!-- Button to generate and display code -->
-        <button id="generateButton">Generate and Display Code</button>
+        
+        <!-- Button to toggle the avatar -->
+        <button id="toggleAvatarButton">Toggle Avatar</button>
     </section>
     
-    <!-- Code display div -->
-    <div id="codeDisplay">
-        <h2>Generated Code</h2>
-        <pre id="codeOutput"></pre>
-        <button id="closeCodeDisplay">Close</button>
-    </div>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -26,18 +26,19 @@ header {
 }
 
 /* Style the main content section */
-#avatar {
+#controls {
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Style the sliders and the button */
+/* Style the sliders */
 .slider {
     margin: 10px 0;
 }
 
+/* Style the button */
 button {
     background-color: #333;
     color: white;
@@ -50,30 +51,3 @@ button {
 button:hover {
     background-color: #555;
 }
-
-/* Style the code display div */
-#codeDisplay {
-    display: none;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    text-align: left;
-}
-
-/* Style the mouth (initially closed) */
-#mouth {
-    width: 32px;
-    height: 8px;
-    background-color: #333; /* Dark color for the mouth */
-    transform-origin: center bottom;
-    transform: scaleY(0); /* Initially closed mouth */
-    transition: transform 0.5s ease;
-}
-
-/* Add an animation for opening the mouth */
-.open-mouth #mouth {
-    transform: scaleY(1); /* Fully open mouth */
-}
-
-/* Add more CSS styles as needed */

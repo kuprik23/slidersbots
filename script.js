@@ -1,58 +1,43 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const colorSlider = document.getElementById("colorSlider");
-    const sizeSlider = document.getElementById("sizeSlider");
-    const personalitySlider = document.getElementById("personalitySlider");
-    const shapeSlider = document.getElementById("shapeSlider");
-    const generateButton = document.getElementById("generateButton");
-    const cubeContainer = document.getElementById("cube-container");
-    const codeOutput = document.getElementById("codeOutput");
+    // Initialize your Three.js scene here
 
-    const updateCube = () => {
-        const color = `rgb(${colorSlider.value}, ${colorSlider.value}, ${colorSlider.value})`;
-        const size = `${sizeSlider.value}px`;
-        const personality = personalitySlider.value;
-        const shape = shapeSlider.value;
+    // Event listeners for sliders, buttons, and code generation
+    const redSlider = document.getElementById("red-slider");
+    const greenSlider = document.getElementById("green-slider");
+    const blueSlider = document.getElementById("blue-slider");
+    const personalitySlider1 = document.getElementById("personality-slider-1");
+    const personalitySlider2 = document.getElementById("personality-slider-2");
+    const personalitySlider3 = document.getElementById("personality-slider-3");
+    const generateButton = document.getElementById("generate-button");
+    const languageSelect = document.getElementById("language-select");
+    const formatSelect = document.getElementById("format-select");
+    const codeWindow = document.getElementById("code-window");
 
-        cubeContainer.style.backgroundColor = color;
-        cubeContainer.style.width = size;
-        cubeContainer.style.height = size;
+    // Initialize your Three.js scene and objects here
+    // ...
 
-        // You can modify cubeContainer here based on personality and shape
-    };
+    // Event listener for Generate Code button
+    generateButton.addEventListener("click", function () {
+        // Get the selected language and format
+        const selectedLanguage = languageSelect.value;
+        const selectedFormat = formatSelect.value;
 
-    updateCube();
+        // Generate code based on selected options
+        const generatedCode = generateCode(selectedLanguage, selectedFormat);
 
-    const generateCode = () => {
-        updateCube();
-        const code = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EMERSA Studio - Customized Cube</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <section id="cube-container">
-        <!-- Cube will be rendered here -->
-    </section>
-    <script src="script.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            ${updateCube.toString()}
-            updateCube();
-        });
-    </script>
-</body>
-</html>
-        `;
-        codeOutput.value = code;
-    };
+        // Display the generated code in the code window
+        codeWindow.textContent = generatedCode;
+    });
 
-    colorSlider.addEventListener("input", updateCube);
-    sizeSlider.addEventListener("input", updateCube);
-    personalitySlider.addEventListener("input", updateCube);
-    shapeSlider.addEventListener("input", updateCube);
-    generateButton.addEventListener("click", generateCode);
+    // Function to generate code based on selected options
+    function generateCode(language, format) {
+        // Implement code generation logic based on language and format
+        // ...
+
+        // For demonstration, we'll return a placeholder message
+        return `Generated code (${language}, ${format}) will be displayed here.`;
+    }
+
+    // Additional functionality for 3D rendering, sliders, etc.
+    // ...
 });

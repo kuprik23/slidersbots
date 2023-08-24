@@ -5,6 +5,34 @@ const codeOutput = document.getElementById('codeOutput');
 const colorSliders = [document.getElementById('slider1'), document.getElementById('slider2'), document.getElementById('slider3')];
 const personalitySliders = [document.getElementById('personality1'), document.getElementById('personality2'), document.getElementById('personality3')];
 
+// Create a scene
+const scene = new THREE.Scene();
+
+// Create a camera
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 5;
+
+// Create a renderer
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(300, 300);
+document.getElementById('cube-container').appendChild(renderer.domElement);
+
+// Create cubes with different colors
+const cubeMaterials = [
+    new THREE.MeshBasicMaterial({ color: 0xff0000 }), // Red
+    new THREE.MeshBasicMaterial({ color: 0x00ff00 }), // Green
+    new THREE.MeshBasicMaterial({ color: 0x0000ff })  // Blue
+];
+
+const cubes = [];
+for (let i = 0; i < cubeMaterials.length; i++) {
+    const geometry = new THREE.BoxGeometry();
+    const cube = new THREE.Mesh(geometry, cubeMaterials[i]);
+    cube.position.x = i * 2.5;
+    scene.add(cube);
+    cubes.push(cube);
+}
+
 // Function to update cube colors based on color sliders
 function updateCubeColor() {
     const red = colorSliders[0].value;
@@ -24,8 +52,6 @@ colorSliders.forEach(slider => {
 // Function to update cube scale based on personality traits
 function updateCubeScale() {
     const scale1 = personality1.value / 50; // Scale value for Trait 1 (0 to 2)
-    const scale2 = personality2.value / 50; // Scale value for Trait 2 (0 to 2)
-    const scale3 = personality3.value / 50; // Scale value for Trait 3 (0 to 2)
 
     cubes[0].scale.set(1, scale1, 1); // Update scale for cube 1 (Trait 1)
 }
@@ -45,8 +71,6 @@ function generatePythonSnippet() {
     const blue = colorSliders[2].value;
 
     const personality1Value = personality1.value;
-    const personality2Value = personality2.value;
-    const personality3Value = personality3.value;
 
     const generatedCode = `
 # Import the necessary Three.js library
@@ -93,3 +117,15 @@ function rgbToHex(r, g, b) {
     b = Math.floor(b);
     return ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
 }
+
+// Animation loop
+const animate = () => {
+    requestAnimationFrame(animate);
+    cubes.forEach(cube => {
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+    });
+    renderer.render(scene, camera);
+};
+
+animate();

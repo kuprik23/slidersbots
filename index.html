@@ -14,60 +14,29 @@
 
     <section id="canvas-container">
         <!-- 3D objects will be rendered here -->
-    </section>
-
-    <section id="object-selection">
-        <button id="prev-object">Previous</button>
-        <button id="next-object">Next</button>
+        <div id="color-change-cube"></div>
     </section>
 
     <section id="color-sliders">
         <label for="red-slider">Red:</label>
-        <input type="range" id="red-slider" min="0" max="255">
+        <input type="range" id="red-slider" min="0" max="255" value="0">
 
         <label for="green-slider">Green:</label>
-        <input type="range" id="green-slider" min="0" max="255">
+        <input type="range" id="green-slider" min="0" max="255" value="0">
 
         <label for="blue-slider">Blue:</label>
-        <input type="range" id="blue-slider" min="0" max="255">
-    </section>
-
-    <section id="personality-sliders">
-        <label for="personality-slider-1">Personality Trait 1:</label>
-        <input type="range" id="personality-slider-1" min="1" max="3">
-
-        <label for="personality-slider-2">Personality Trait 2:</label>
-        <input type="range" id="personality-slider-2" min="1" max="3">
-
-        <label for="personality-slider-3">Personality Trait 3:</label>
-        <input type="range" id="personality-slider-3" min="1" max="3">
+        <input type="range" id="blue-slider" min="0" max="255" value="0">
     </section>
 
     <section id="code-buttons">
         <button id="generate-button">Generate Code</button>
-        <label for="language-select">Select Language:</label>
-        <select id="language-select">
-            <option value="cpp">C++</option>
-            <option value="python">Python</option>
-            <option value="javascript">JavaScript</option>
-            <option value="html">HTML</option>
-        </select>
-        <label for="format-select">Select Format:</label>
-        <select id="format-select">
-            <option value="fbx">FBX</option>
-            <option value="glb">GLB</option>
-            <option value="bvh">BVH</option>
-            <option value="unreal">Unreal</option>
-            <option value="unity">Unity</option>
-            <option value="web">Web</option>
-        </select>
     </section>
 
     <section id="code-window">
-        <!-- Code generation window content here -->
+        <!-- Generated code will be displayed here -->
+        <pre id="generated-code"></pre>
     </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -20,4 +20,11 @@ header {
     margin-bottom: 20px;
 }
 
+#color-change-cube {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(0, 0, 0);
+    margin-bottom: 20px;
+}
+
 /* Add more styling as needed */

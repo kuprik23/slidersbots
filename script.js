@@ -4,6 +4,7 @@ const codeDisplay = document.getElementById('codeDisplay');
 const codeOutput = document.getElementById('codeOutput');
 const colorSlider = document.getElementById('colorSlider');
 const shapeSlider = document.getElementById('shapeSlider');
+const personalitySlider = document.getElementById('personalitySlider');
 const cubeContainer = document.getElementById('cube-container');
 
 // Create a scene
@@ -57,11 +58,37 @@ function updateCubeShape() {
 // Event listener for shape slider
 shapeSlider.addEventListener('input', updateCubeShape);
 
+// Function to update cube shape and scale based on personality and shape sliders
+function updateCubeShapeAndScale() {
+    const personalityValue = personalitySlider.value;
+    const shapeValue = parseInt(shapeSlider.value);
+
+    // Update shape based on shape slider
+    updateCubeShape();
+
+    // Update scale based on personality slider
+    switch (personalityValue) {
+        case "1":
+            // Do nothing (default scale)
+            break;
+        case "2":
+            cube.scale.set(1, 0.5, 1); // Scale for personality 2
+            break;
+        case "3":
+            cube.scale.set(1, 2, 1); // Scale for personality 3
+            break;
+    }
+}
+
+// Event listener for personality slider
+personalitySlider.addEventListener('input', updateCubeShapeAndScale);
+
 // Function to generate Three.js code
 function generateThreeJsCode() {
     const colorValue = colorSlider.value;
     const hexColor = rgbToHex(colorValue, colorValue, colorValue);
     const shapeValue = parseInt(shapeSlider.value);
+    const personalityValue = personalitySlider.value;
 
     const generatedCode = `
 const scene = new THREE.Scene();

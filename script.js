@@ -4,7 +4,6 @@ const codeDisplay = document.getElementById('codeDisplay');
 const codeOutput = document.getElementById('codeOutput');
 const colorSlider = document.getElementById('colorSlider');
 const shapeSlider = document.getElementById('shapeSlider');
-const personalitySlider = document.getElementById('personalitySlider');
 const cubeContainer = document.getElementById('cube-container');
 
 // Create a scene
@@ -19,8 +18,8 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(cubeContainer.offsetWidth, cubeContainer.offsetHeight);
 cubeContainer.appendChild(renderer.domElement);
 
-// Create a cube with initial color and shape
-const cubeGeometry = new THREE.BoxGeometry();
+// Initialize cube geometry and material
+let cubeGeometry = new THREE.BoxGeometry();
 const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0x7f7f7f }); // Initial gray color
 const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 scene.add(cube);
@@ -38,58 +37,31 @@ colorSlider.addEventListener('input', updateCubeColor);
 // Function to update cube shape based on shape slider
 function updateCubeShape() {
     const shapeValue = parseInt(shapeSlider.value);
-    let newGeometry;
+    
+    // Dispose the current geometry
+    cube.geometry.dispose();
 
-    switch (shapeValue) {
-        case 1:
-            newGeometry = new THREE.BoxGeometry();
-            break;
-        case 2:
-            newGeometry = new THREE.CylinderGeometry(1, 1, 1, 32);
-            break;
-        case 3:
-            newGeometry = new THREE.SphereGeometry(1, 32, 32);
-            break;
+    // Create new geometry based on shape slider value
+    if (shapeValue === 1) {
+        cubeGeometry = new THREE.BoxGeometry();
+    } else if (shapeValue === 2) {
+        cubeGeometry = new THREE.CylinderGeometry(1, 1, 1, 32);
+    } else if (shapeValue === 3) {
+        cubeGeometry = new THREE.SphereGeometry(1, 32, 32);
     }
 
-    cube.geometry.dispose();
-    cube.geometry = newGeometry;
+    // Create a new mesh with the updated geometry
+    cube.geometry = cubeGeometry;
 }
 
 // Event listener for shape slider
 shapeSlider.addEventListener('input', updateCubeShape);
-
-// Function to update cube shape and scale based on personality and shape sliders
-function updateCubeShapeAndScale() {
-    const personalityValue = personalitySlider.value;
-    const shapeValue = parseInt(shapeSlider.value);
-
-    // Update shape based on shape slider
-    updateCubeShape();
-
-    // Update scale based on personality slider
-    switch (personalityValue) {
-        case "1":
-            // Do nothing (default scale)
-            break;
-        case "2":
-            cube.scale.set(1, 0.5, 1); // Scale for personality 2
-            break;
-        case "3":
-            cube.scale.set(1, 2, 1); // Scale for personality 3
-            break;
-    }
-}
-
-// Event listener for personality slider
-personalitySlider.addEventListener('input', updateCubeShapeAndScale);
 
 // Function to generate Three.js code
 function generateThreeJsCode() {
     const colorValue = colorSlider.value;
     const hexColor = rgbToHex(colorValue, colorValue, colorValue);
     const shapeValue = parseInt(shapeSlider.value);
-    const personalityValue = personalitySlider.value;
 
     const generatedCode = `
 const scene = new THREE.Scene();

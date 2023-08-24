@@ -21,8 +21,8 @@ cubeContainer.appendChild(renderer.domElement);
 // Create cubes with different colors
 const cubeMaterials = [
     new THREE.MeshBasicMaterial({ color: 0xff0000 }), // Red
-    new THREE.MeshBasicMaterial({ color: 0x0000ff }), // Blue
-    new THREE.MeshBasicMaterial({ color: 0xffa500 })  // Orange
+    new THREE.MeshBasicMaterial({ color: 0x00ff00 }), // Green
+    new THREE.MeshBasicMaterial({ color: 0x0000ff })  // Blue
 ];
 
 const cubes = [];
@@ -50,29 +50,56 @@ colorSliders.forEach(slider => {
     slider.addEventListener('input', updateCubeColor);
 });
 
+// Function to update cube scale based on personality traits
+function updateCubeScale() {
+    const scale1 = personality1.value / 50; // Scale value for Trait 1 (0 to 2)
+    const scale2 = personality2.value / 50; // Scale value for Trait 2 (0 to 2)
+    const scale3 = personality3.value / 50; // Scale value for Trait 3 (0 to 2)
+
+    cubes[0].scale.set(1, scale1, 1); // Update scale for cube 1 (Trait 1)
+    cubes[1].scale.set(1, scale2, 1); // Update scale for cube 2 (Trait 2)
+    cubes[2].scale.set(1, scale3, 1); // Update scale for cube 3 (Trait 3)
+}
+
+// Event listeners for personality sliders
+personalitySliders.forEach(slider => {
+    slider.addEventListener('input', () => {
+        updateCubeScale();
+        updateCubeColor();
+    });
+});
+
 // Function to generate code based on cube colors and personality traits
 function generateCode() {
     const red = colorSliders[0].value;
     const green = colorSliders[1].value;
     const blue = colorSliders[2].value;
 
-    const personality1 = personalitySliders[0].value;
-    const personality2 = personalitySliders[1].value;
-    const personality3 = personalitySliders[2].value;
+    const personality1Value = personality1.value;
+    const personality2Value = personality2.value;
+    const personality3Value = personality3.value;
 
     const generatedCode = `
-        // Create a cube with the selected color
-        const geometry = new THREE.BoxGeometry();
-        const material = new THREE.MeshBasicMaterial({ color: 0x${rgbToHex(red, green, blue)} });
-        const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
+        // Create cubes with the selected colors
+        const cubeMaterials = [
+            new THREE.MeshBasicMaterial({ color: 0x${rgbToHex(red, green, blue)} }), // Color cube 1
+            new THREE.MeshBasicMaterial({ color: 0x00ff00 }), // Green cube 2
+            new THREE.MeshBasicMaterial({ color: 0x0000ff })  // Blue cube 3
+        ];
 
-        // Set personality traits for the cube
-        cube.personality = {
-            trait1: ${personality1},
-            trait2: ${personality2},
-            trait3: ${personality3}
-        };
+        const cubes = [];
+        for (let i = 0; i < cubeMaterials.length; i++) {
+            const geometry = new THREE.BoxGeometry();
+            const cube = new THREE.Mesh(geometry, cubeMaterials[i]);
+            cube.position.x = i * 2.5;
+            scene.add(cube);
+            cubes.push(cube);
+        }
+
+        // Set personality traits for the cubes
+        cubes[0].scale.set(1, ${personality1Value / 50}, 1); // Scale for cube 1 (Trait 1)
+        cubes[1].scale.set(1, ${personality2Value / 50}, 1); // Scale for cube 2 (Trait 2)
+        cubes[2].scale.set(1, ${personality3Value / 50}, 1); // Scale for cube 3 (Trait 3)
     `;
 
     // Display the generated code in the codeOutput element
@@ -97,8 +124,6 @@ const animate = () => {
 
 animate();
 
-
-
 // Utility function to convert RGB to hex
 function rgbToHex(r, g, b) {
     r = Math.floor(r);
@@ -106,8 +131,3 @@ function rgbToHex(r, g, b) {
     b = Math.floor(b);
     return ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
 }
-
-// Initialize the cube colors
-updateCubeColor();
-
-// ... (rest of the code) ...

@@ -2,88 +2,123 @@
 const generateCodeButton = document.getElementById('generateCodeButton');
 const codeDisplay = document.getElementById('codeDisplay');
 const codeOutput = document.getElementById('codeOutput');
-const colorSliders = [document.getElementById('slider1'), document.getElementById('slider2'), document.getElementById('slider3')];
-const personalitySliders = [document.getElementById('personality1'), document.getElementById('personality2'), document.getElementById('personality3')];
+const colorSlider = document.getElementById('colorSlider');
+const shapeSlider = document.getElementById('shapeSlider');
+const personalitySlider = document.getElementById('personalitySlider');
+const cubeContainer = document.getElementById('cube-container');
 
 // Create a scene
 const scene = new THREE.Scene();
 
 // Create a camera
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
+const camera = new THREE.PerspectiveCamera(75, cubeContainer.offsetWidth / cubeContainer.offsetHeight, 0.1, 1000);
+camera.position.z = 2;
 
 // Create a renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(300, 300);
-document.getElementById('cube-container').appendChild(renderer.domElement);
+renderer.setSize(cubeContainer.offsetWidth, cubeContainer.offsetHeight);
+cubeContainer.appendChild(renderer.domElement);
 
-// Create cubes with different colors
-const cubeMaterials = [
-    new THREE.MeshBasicMaterial({ color: 0xff0000 }), // Red
-    new THREE.MeshBasicMaterial({ color: 0x00ff00 }), // Green
-    new THREE.MeshBasicMaterial({ color: 0x0000ff })  // Blue
-];
+// Create a cube with initial color and shape
+const cubeGeometry = new THREE.BoxGeometry();
+const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0x7f7f7f }); // Initial gray color
+const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+scene.add(cube);
 
-const cubes = [];
-for (let i = 0; i < cubeMaterials.length; i++) {
-    const geometry = new THREE.BoxGeometry();
-    const cube = new THREE.Mesh(geometry, cubeMaterials[i]);
-    cube.position.x = i * 2.5;
-    scene.add(cube);
-    cubes.push(cube);
-}
-
-// Function to update cube colors based on color sliders
+// Function to update cube color based on color slider
 function updateCubeColor() {
-    const red = colorSliders[0].value;
-    const green = colorSliders[1].value;
-    const blue = colorSliders[2].value;
-
-    cubes.forEach(cube => {
-        cube.material.color.setRGB(red / 255, green / 255, blue / 255);
-    });
+    const colorValue = colorSlider.value;
+    const hexColor = rgbToHex(colorValue, colorValue, colorValue);
+    cube.material.color.set(hexColor);
 }
 
-// Event listeners for color sliders
-colorSliders.forEach(slider => {
-    slider.addEventListener('input', updateCubeColor);
-});
+// Event listener for color slider
+colorSlider.addEventListener('input', updateCubeColor);
 
-// Function to update cube scale based on personality traits
-function updateCubeScale() {
-    const scale1 = personalitySliders[0].value / 50; // Scale value for Trait 1 (0 to 2)
-
-    cubes[0].scale.set(1, scale1, 1); // Update scale for cube 1 (Trait 1)
-}
-
-// Event listeners for personality sliders
-personalitySliders.forEach(slider => {
-    slider.addEventListener('input', () => {
-        updateCubeScale();
-        updateCubeColor();
-        updateCubeShape(); // Update cube shape
-    });
-});
-
-// Function to update cube shape based on personality traits
+// Function to update cube shape based on shape slider
 function updateCubeShape() {
-    const personality1Value = personalitySliders[0].value;
+    const shapeValue = parseInt(shapeSlider.value);
+    let newGeometry;
 
-    const cubeShapes = [
-        new THREE.BoxGeometry(),               // Cube
-        new THREE.CylinderGeometry(1, 1, 1),   // Cylinder
-        new THREE.SphereGeometry(1, 32, 32),   // Sphere
-    ];
+    switch (shapeValue) {
+        case 1:
+            newGeometry = new THREE.BoxGeometry();
+            break;
+        case 2:
+            newGeometry = new THREE.CylinderGeometry(1, 1, 1, 32);
+            break;
+        case 3:
+            newGeometry = new THREE.SphereGeometry(1, 32, 32);
+            break;
+    }
 
-    cubes[0].geometry.dispose(); // Dispose of the old geometry
-    cubes[0].geometry = cubeShapes[personality1Value - 1].clone(); // Update shape for cube 1
+    cube.geometry.dispose();
+    cube.geometry = newGeometry;
 }
 
-// Event listener for the generate code button
-generateCodeButton.addEventListener('click', generatePythonSnippet);
+// Event listener for shape slider
+shapeSlider.addEventListener('input', updateCubeShape);
 
-// Initialize cube shape
-updateCubeShape();
+// Function to update cube shape and scale based on personality and shape sliders
+function updateCubeShapeAndScale() {
+    const personalityValue = personalitySlider.value;
+    const shapeValue = parseInt(shapeSlider.value);
+
+    // Update shape based on shape slider
+    updateCubeShape();
+
+    // Update scale based on personality slider
+    switch (personalityValue) {
+        case "1":
+            // Do nothing (default scale)
+            break;
+        case "2":
+            cube.scale.set(1, 0.5, 1); // Scale for personality 2
+            break;
+        case "3":
+            cube.scale.set(1, 2, 1); // Scale for personality 3
+            break;
+    }
+}
+
+// Event listener for personality slider
+personalitySlider.addEventListener('input', updateCubeShapeAndScale);
+
+// Function to generate Three.js code
+function generateThreeJsCode() {
+    const colorValue = colorSlider.value;
+    const hexColor = rgbToHex(colorValue, colorValue, colorValue);
+    const shapeValue = parseInt(shapeSlider.value);
+    const personalityValue = personalitySlider.value;
+
+    const generatedCode = `
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 2;
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const cubeGeometry = new THREE.${getShapeName(shapeValue)}Geometry();
+const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0x${hexColor} });
+const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+scene.add(cube);
+
+const animate = () => {
+    requestAnimationFrame(animate);
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+    renderer.render(scene, camera);
+};
+
+animate();
+`;
+
+    codeOutput.textContent = generatedCode;
+}
+
+// Event listener for generate code button
+generateCodeButton.addEventListener('click', generateThreeJsCode);
 
 // Utility function to convert RGB to hex
 function rgbToHex(r, g, b) {
@@ -93,14 +128,24 @@ function rgbToHex(r, g, b) {
     return ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
 }
 
+// Utility function to get shape name
+function getShapeName(shapeValue) {
+    switch (shapeValue) {
+        case 1:
+            return "Box";
+        case 2:
+            return "Cylinder";
+        case 3:
+            return "Sphere";
+    }
+}
+
 // Animation loop
 const animate = () => {
     requestAnimationFrame(animate);
-    cubes.forEach(cube => {
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-    });
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
     renderer.render(scene, camera);
-};
+}
 
 animate();

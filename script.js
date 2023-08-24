@@ -51,7 +51,7 @@ colorSliders.forEach(slider => {
 
 // Function to update cube scale based on personality traits
 function updateCubeScale() {
-    const scale1 = personality1.value / 50; // Scale value for Trait 1 (0 to 2)
+    const scale1 = personalitySliders[0].value / 50; // Scale value for Trait 1 (0 to 2)
 
     cubes[0].scale.set(1, scale1, 1); // Update scale for cube 1 (Trait 1)
 }
@@ -75,7 +75,8 @@ function updateCubeShape() {
         new THREE.SphereGeometry(1, 32, 32),   // Sphere
     ];
 
-    cubes[0].geometry = cubeShapes[personality1Value - 1]; // Update shape for cube 1
+    cubes[0].geometry.dispose(); // Dispose of the old geometry
+    cubes[0].geometry = cubeShapes[personality1Value - 1].clone(); // Update shape for cube 1
 }
 
 // Event listener for the generate code button

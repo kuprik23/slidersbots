@@ -23,17 +23,19 @@ header {
     color: white;
     padding: 20px;
     font-size: 24px;
+    margin-bottom: 20px;
+    border-radius: 10px;
 }
 
 /* Style the main content section */
 #controls {
-    background-color: #f8f8f8;
+    background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     width: 60%;
     max-width: 500px;
-    margin: 20px auto;
+    text-align: center;
 }
 
 /* Style the sliders */
@@ -61,12 +63,11 @@ button:hover {
     display: none;
     margin-top: 20px;
     padding: 20px;
-    background-color: #f8f8f8;
+    background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     width: 60%;
     max-width: 500px;
-    margin: 20px auto;
     text-align: left;
 }
 

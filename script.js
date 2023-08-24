@@ -97,7 +97,17 @@ const animate = () => {
 
 animate();
 
+
+
 // Utility function to convert RGB to hex
 function rgbToHex(r, g, b) {
+    r = Math.floor(r);
+    g = Math.floor(g);
+    b = Math.floor(b);
     return ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
 }
+
+// Initialize the cube colors
+updateCubeColor();
+
+// ... (rest of the code) ...

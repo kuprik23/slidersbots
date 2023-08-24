@@ -68,8 +68,6 @@ personalitySliders.forEach(slider => {
 // Function to update cube shape based on personality traits
 function updateCubeShape() {
     const personality1Value = personalitySliders[0].value;
-    const personality2Value = personalitySliders[1].value;
-    const personality3Value = personalitySliders[2].value;
 
     const cubeShapes = [
         new THREE.BoxGeometry(),               // Cube

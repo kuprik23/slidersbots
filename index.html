@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customize and Generate Three.js Code</title>
+    <title>EMERSA Studio - Customize Your Cube</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Customize and Generate Three.js Code</h1>
+        <h1>EMERSA Studio</h1>
+        <p>Customize Your Cube</p>
     </header>
-    
+
     <section id="controls">
         <h2>Customize Your Cube</h2>
         <div class="slider">
@@ -18,28 +19,30 @@
             <input type="range" id="colorSlider" min="0" max="255" value="127">
         </div>
         <div class="slider">
-            <label for="shapeSlider">Shape:</label>
-            <input type="range" id="shapeSlider" min="1" max="3" value="1">
+            <label for="sizeSlider">Size:</label>
+            <input type="range" id="sizeSlider" min="50" max="200" value="100">
         </div>
         <div class="slider">
             <label for="personalitySlider">Personality:</label>
             <input type="range" id="personalitySlider" min="1" max="3" value="1">
         </div>
-        <button id="generateCodeButton">Generate Three.js Code</button>
+        <div class="slider">
+            <label for="shapeSlider">Shape:</label>
+            <input type="range" id="shapeSlider" min="1" max="3" value="1">
+        </div>
+        <button id="generateButton">Generate HTML Code</button>
     </section>
-    
+
     <section id="cube-container">
         <!-- Cube will be rendered here -->
     </section>
 
-    <!-- Code display div -->
-    <div id="codeDisplay">
-        <h2>Generated Three.js Code</h2>
-        <pre id="codeOutput"></pre>
-        <button id="closeCodeDisplay">Close</button>
-    </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Generated HTML Code Display -->
+    <section id="code-display">
+        <h2>Generated HTML Code</h2>
+        <textarea id="codeOutput" readonly></textarea>
+    </section>
+
     <script src="script.js"></script>
 </body>
 </html>

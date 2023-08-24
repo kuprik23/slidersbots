@@ -61,54 +61,30 @@ personalitySliders.forEach(slider => {
     slider.addEventListener('input', () => {
         updateCubeScale();
         updateCubeColor();
+        updateCubeShape(); // Update cube shape
     });
 });
 
-// Function to generate Python code snippet for one cube
-function generatePythonSnippet() {
-    const red = colorSliders[0].value;
-    const green = colorSliders[1].value;
-    const blue = colorSliders[2].value;
+// Function to update cube shape based on personality traits
+function updateCubeShape() {
+    const personality1Value = personalitySliders[0].value;
+    const personality2Value = personalitySliders[1].value;
+    const personality3Value = personalitySliders[2].value;
 
-    const personality1Value = personality1.value;
+    const cubeShapes = [
+        new THREE.BoxGeometry(),               // Cube
+        new THREE.CylinderGeometry(1, 1, 1),   // Cylinder
+        new THREE.SphereGeometry(1, 32, 32),   // Sphere
+    ];
 
-    const generatedCode = `
-# Import the necessary Three.js library
-from pythreejs import *
-
-# Create a scene
-scene = Scene()
-
-# Create a camera
-camera = PerspectiveCamera(position=[0, 0, 5])
-
-# Create a renderer
-renderer = Renderer(camera=camera, width=300, height=300)
-renderer.background = "#f0f0f0"
-renderer.camera = camera
-
-# Create a cube with the selected color
-cube_geometry = BoxGeometry(width=1, height=${personality1Value / 50}, depth=1)
-cube_material = MeshBasicMaterial(color=0x${rgbToHex(red, green, blue)})
-cube = Mesh(geometry=cube_geometry, material=cube_material)
-scene.add(cube)
-
-# Set personality traits for the cube
-cube.scale = [1, ${personality1Value / 50}, 1]
-
-# Display the scene
-display(renderer)
-    `;
-
-    // Display the generated code in the codeOutput element
-    codeOutput.textContent = generatedCode;
-
-    // Show the code display div
-    codeDisplay.style.display = 'block';
+    cubes[0].geometry = cubeShapes[personality1Value - 1]; // Update shape for cube 1
 }
 
 // Event listener for the generate code button
 generateCodeButton.addEventListener('click', generatePythonSnippet);
+
+// Initialize cube shape
+updateCubeShape();
 
 // Utility function to convert RGB to hex
 function rgbToHex(r, g, b) {
